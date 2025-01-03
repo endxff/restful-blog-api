@@ -46,8 +46,27 @@ def login():
 
 
 @app.route("/posts", methods=["GET"])
-def posts():
-    posts = db.session.query(Post).all()
+@app.route("/posts", defaults={"order": None}, methods=["GET"])
+@app.route("/posts/<order>", methods=["GET"])
+def posts(order):
+    page = request.args.get("page", 1, type=int)
+    per_page = request.args.get("per_page", 2, type=int)
+
+    if order == "asc":
+        posts = (
+            db.session.query(Post)
+            .order_by(Post.created_at.asc())
+            .paginate(page=page, per_page=per_page, error_out=False)
+            .items
+        )
+    else:
+        posts = (
+            db.session.query(Post)
+            .order_by(Post.created_at.desc())
+            .paginate(page=page, per_page=per_page, error_out=False)
+            .items
+        )
+
     return jsonify(
         [
             {
@@ -57,6 +76,8 @@ def posts():
                 "content": post.content,
                 "user_id": post.user_id,
                 "categories": [category.name for category in post.categories],
+                "created_at": post.created_at,
+                "updated_at": post.updated_at,
             }
             for post in posts
         ]
