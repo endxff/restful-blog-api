@@ -1,8 +1,9 @@
 import bcrypt
-from sqlalchemy import Column, Integer, String, Table, ForeignKey
+from sqlalchemy import Column, Integer, String, Table, ForeignKey, DateTime, func
 from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
-
+from pytz import timezone
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -44,6 +45,14 @@ class Post(db.Model):
     subtitle = Column(String(50), nullable=True)
     content = Column(String(50), nullable=False)
     user_id = Column(Integer, nullable=True)
+    created_at = Column(
+        DateTime(timezone=True), default=datetime.now(timezone("America/Sao_Paulo"))
+    )
+    updated_at = Column(
+        DateTime(timezone=True),
+        default=datetime.now(timezone("America/Sao_Paulo")),
+        onupdate=datetime.now(timezone("America/Sao_Paulo")),
+    )
 
     # Many-to-many relationship with Category
     categories = relationship(
