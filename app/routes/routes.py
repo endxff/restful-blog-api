@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import User, db, Post, Category
+from app.models.models import User, db, Post, Category
 
 from flask_jwt_extended import (
     create_access_token,

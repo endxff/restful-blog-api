@@ -13,7 +13,7 @@ It performs the following tasks:
 from flask import Flask
 from models import User, Post, db
 from config import Config
-from routes import app as routes_blueprint
+from routes.routes import app as routes_blueprint
 from flask_jwt_extended import JWTManager
 
 

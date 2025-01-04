@@ -1,9 +1,9 @@
 import pytest
-from config import TestConfig
+from ..config import TestConfig
 from flask import Flask
 from flask_testing import TestCase
-from models import db, User, Post, Category
-from routes import app as routes_blueprint
+from ..models.models import db, User, Post, Category
+from ..routes.routes import app as routes_blueprint
 from flask_jwt_extended import create_access_token, JWTManager
 
 
