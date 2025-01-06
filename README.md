@@ -15,7 +15,7 @@ This project is a RESTful API for a blog application built using Flask, SQLAlche
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/restful-blog-api.git
+   git clone https://github.com/endxff/restful-blog-api.git
    cd restful-blog-api
    ```
 
